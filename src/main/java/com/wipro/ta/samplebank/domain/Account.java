@@ -4,32 +4,32 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class Account {
-	
+
 	private String ownerCpf;
 	private BigDecimal balance;
 	private boolean hasPendingLoan;
+
+	public Account() {
+		
+	}
 	
 	public Account(String ownerCpf) {
 		this.ownerCpf = ownerCpf;
 		this.balance = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN);
 	}
-	
-	public Account() {
-		
-	}
-	
+
 	public BigDecimal getBalance() {
 		return balance;
 	}
-	
+
 	public String getOwnerCpf() {
 		return ownerCpf;
 	}
-	
+
 	public void setOwnerCpf(String ownerCpf) {
 		this.ownerCpf = ownerCpf;
 	}
-	
+
 	public boolean hasPendingLoan() {
 		return hasPendingLoan;
 	}
@@ -38,11 +38,11 @@ public class Account {
 		this.hasPendingLoan = hasPendingLoan;
 	}
 
-	public void deposit(BigDecimal value){
+	public void deposit(BigDecimal value) {
 		this.balance = this.balance.add(value).setScale(2, RoundingMode.HALF_EVEN);
 	}
-	
-	public void withdraw(BigDecimal value){
+
+	public void withdraw(BigDecimal value) {
 		this.balance = this.balance.subtract(value).setScale(2, RoundingMode.HALF_EVEN);
 	}
 
@@ -50,8 +50,7 @@ public class Account {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((ownerCpf == null) ? 0 : ownerCpf.hashCode());
+		result = prime * result + ((ownerCpf == null) ? 0 : ownerCpf.hashCode());
 		return result;
 	}
 

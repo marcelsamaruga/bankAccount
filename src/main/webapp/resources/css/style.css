@@ -1,5 +1,5 @@
 body {
-	background-color: #000099;
+	background-color: #8B0000;
 	color: #FFF;
 	font-family: Arial;
 	margin: 0;
@@ -24,6 +24,15 @@ a {
 
 a,a:visited {
 	color: #FFF;
+}
+
+select {
+    height: 30px;
+    width: 200px;
+}
+
+.sb-admin-content label {
+	color: #AAA;
 }
 
 .sb-no-formatted-link {
@@ -94,7 +103,7 @@ input:focus
 	position: absolute;
 	right: 20px;
 	top: 20px;
-	background-color: #FFA500;
+	background-color: #555;
 	border: 1px solid #AAA;
 	border-radius: 6px;
 	-moz-border-radius: 6px;
@@ -110,17 +119,24 @@ input:focus
 	vertical-align: middle;
 	font-size: 14px;
 	font-weight: bold;
+	top: 725px;
 }
 
 .sb-top-logo {
 	position: absolute;
-	top: 10px;
-	left: 22px;
+	top: 8px;
+	left: 12px;
 	font-weight: bold;
 }
 
+.sb-banner {
+    left: 70px;
+    top: 30px;
+    position: absolute;
+}
+
 .top-rule {
-	margin-top: 40px;
+	margin-top: 70px;
 }
 
 .sb-button {
@@ -145,7 +161,7 @@ input:focus
 	position: absolute;
 	width: 900px;
 	height: 600px;
-	top: 64px;
+	top: 90px;
 	left: 350px;
 	color: black;
 	background-color: #FFF;
@@ -191,13 +207,14 @@ input:focus
 
 #sb-return-message {
 	display: inline-block;
-	width: 100%;
+    width: 98%;
+    margin-left: -6;
 }
 
 /* Menu */
 .sb-admin-menu {
 	position: absolute;
-	top: 60px;
+	top: 90px;
 	left: 20px;
 	font-size: 14px;
 	font-weight: bold;
@@ -232,4 +249,8 @@ input:focus
 	background: #EAEAEA;
 	margin: 3px;
 	line-height: 22px;
+}
+
+.sb-table-button-row {
+    border: 1px solid #AAA;
 }

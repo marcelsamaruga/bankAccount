@@ -1,12 +1,10 @@
 package com.wipro.ta.samplebank.controller.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
-import com.wipro.ta.samplebank.domain.Account;
-import com.wipro.ta.samplebank.response.ResponseDTO;
-import com.wipro.ta.samplebank.response.ResponseMessage;
-import com.wipro.ta.samplebank.service.AccountService;
-import com.wipro.ta.samplebank.validator.BusinessValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -16,32 +14,38 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.wipro.ta.samplebank.domain.Account;
+import com.wipro.ta.samplebank.domain.AccountManager;
+import com.wipro.ta.samplebank.response.AccountDTO;
+import com.wipro.ta.samplebank.response.ResponseDTO;
+import com.wipro.ta.samplebank.response.ResponseMessage;
+import com.wipro.ta.samplebank.validator.BusinessValidator;
+
 @Controller
 @RequestMapping("api/accounts")
 public class AccountController {
 
 	@Autowired
-	private AccountService accountService;
+	private AccountManager accountManager;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST, produces = { "application/json" })
 	@ResponseBody
-	public ResponseDTO<Account> createAccount(
-			@RequestParam(required = false) String ownerCpf,
+	public ResponseDTO<AccountDTO> createAccount(@RequestParam(required = false) String ownerCpf,
 			HttpServletResponse response) {
 
-		ResponseDTO<Account> responseDTO = new ResponseDTO<>();
+		ResponseDTO<AccountDTO> responseDTO = new ResponseDTO<>();
 
 		if (BusinessValidator.isCpfValid(ownerCpf)) {
-			if(accountService.getAccount(ownerCpf) == null) {
-				if (accountService.createAccount(ownerCpf)) {
-	
-					responseDTO.setData(accountService.getAccount(ownerCpf));
+			if (accountManager.getAccount(ownerCpf) == null) {
+				if (accountManager.createAccount(ownerCpf)) {
+
+					responseDTO.setData(new AccountDTO(accountManager.getAccount(ownerCpf)));
 					responseDTO.setMessage(ResponseMessage.SUCCESS);
-	
+
 				} else {
 					responseDTO.setMessage(ResponseMessage.OPERATION_ERROR);
 				}
-				
+
 			} else {
 				responseDTO.setMessage(ResponseMessage.ACCOUNT_ALREADY_EXISTS);
 			}
@@ -49,7 +53,7 @@ public class AccountController {
 		} else {
 			responseDTO.setMessage(ResponseMessage.INVALID_CPF);
 		}
-		
+
 		response.setStatus(HttpStatus.OK.value());
 
 		return responseDTO;
@@ -57,17 +61,16 @@ public class AccountController {
 
 	@RequestMapping(value = "/{ownerCpf}", method = RequestMethod.GET, produces = { "application/json" })
 	@ResponseBody
-	public ResponseDTO<Account> getAccount(@PathVariable String ownerCpf,
-			HttpServletResponse response) {
+	public ResponseDTO<AccountDTO> getAccount(@PathVariable String ownerCpf, HttpServletResponse response) {
 
-		ResponseDTO<Account> responseDTO = new ResponseDTO<>();
+		ResponseDTO<AccountDTO> responseDTO = new ResponseDTO<>();
 
 		if (BusinessValidator.isCpfValid(ownerCpf)) {
 
-			Account account = accountService.getAccount(ownerCpf);
+			Account account = accountManager.getAccount(ownerCpf);
 
 			if (account != null) {
-				responseDTO.setData(account);
+				responseDTO.setData(new AccountDTO(account));
 				responseDTO.setMessage(ResponseMessage.SUCCESS);
 			} else {
 				responseDTO.setMessage(ResponseMessage.ACCOUNT_NOT_FOUND);
@@ -76,7 +79,7 @@ public class AccountController {
 		} else {
 			responseDTO.setMessage(ResponseMessage.INVALID_CPF);
 		}
-		
+
 		response.setStatus(HttpStatus.OK.value());
 
 		return responseDTO;
@@ -84,16 +87,16 @@ public class AccountController {
 
 	@RequestMapping(value = "/{ownerCpf}/deposit", method = RequestMethod.PUT, produces = { "application/json" })
 	@ResponseBody
-	public ResponseDTO<Account> makeDeposit(@PathVariable String ownerCpf,
-			@RequestParam String value, HttpServletResponse response) {
+	public ResponseDTO<AccountDTO> makeDeposit(@PathVariable String ownerCpf, @RequestParam String value,
+			HttpServletResponse response) {
 
-		ResponseDTO<Account> responseDTO = new ResponseDTO<>();
+		ResponseDTO<AccountDTO> responseDTO = new ResponseDTO<>();
 
 		if (BusinessValidator.isCpfValid(ownerCpf)) {
-			if (accountService.getAccount(ownerCpf) != null) {
+			if (accountManager.getAccount(ownerCpf) != null) {
 				if (BusinessValidator.isAmmountfValid(value)) {
-
-					accountService.makeDeposit(ownerCpf, value);
+					accountManager.makeDeposit(ownerCpf, value);
+					responseDTO.setData(new AccountDTO(accountManager.getAccount(ownerCpf)));
 					responseDTO.setMessage(ResponseMessage.SUCCESS);
 
 				} else {
@@ -107,7 +110,7 @@ public class AccountController {
 		} else {
 			responseDTO.setMessage(ResponseMessage.INVALID_CPF);
 		}
-		
+
 		response.setStatus(HttpStatus.OK.value());
 
 		return responseDTO;
@@ -115,16 +118,16 @@ public class AccountController {
 
 	@RequestMapping(value = "/{ownerCpf}/withdraw", method = RequestMethod.PUT, produces = { "application/json" })
 	@ResponseBody
-	public ResponseDTO<Account> makeWithdraw(@PathVariable String ownerCpf,
-			@RequestParam String value, HttpServletResponse response) {
+	public ResponseDTO<AccountDTO> makeWithdraw(@PathVariable String ownerCpf, @RequestParam String value,
+			HttpServletResponse response) {
 
-		ResponseDTO<Account> responseDTO = new ResponseDTO<>();
+		ResponseDTO<AccountDTO> responseDTO = new ResponseDTO<>();
 
 		if (BusinessValidator.isCpfValid(ownerCpf)) {
-			if (accountService.getAccount(ownerCpf) != null) {
+			if (accountManager.getAccount(ownerCpf) != null) {
 				if (BusinessValidator.isAmmountfValid(value)) {
-
-					accountService.makeWithdraw(ownerCpf, value);
+					accountManager.makeWithdraw(ownerCpf, value);
+					responseDTO.setData(new AccountDTO(accountManager.getAccount(ownerCpf)));
 					responseDTO.setMessage(ResponseMessage.SUCCESS);
 
 				} else {
@@ -138,7 +141,7 @@ public class AccountController {
 		} else {
 			responseDTO.setMessage(ResponseMessage.INVALID_CPF);
 		}
-		
+
 		response.setStatus(HttpStatus.OK.value());
 
 		return responseDTO;
@@ -146,19 +149,17 @@ public class AccountController {
 
 	@RequestMapping(value = "/{ownerCpf}/transfer", method = RequestMethod.PUT, produces = { "application/json" })
 	@ResponseBody
-	public ResponseDTO<Account> makeTransfer(@PathVariable String ownerCpf,
-			@RequestParam String targetCpf, @RequestParam String value,
-			HttpServletResponse response) {
+	public ResponseDTO<AccountDTO> makeTransfer(@PathVariable String ownerCpf, @RequestParam String targetCpf,
+			@RequestParam String value, HttpServletResponse response) {
 
-		ResponseDTO<Account> responseDTO = new ResponseDTO<>();
+		ResponseDTO<AccountDTO> responseDTO = new ResponseDTO<>();
 
 		if (BusinessValidator.isCpfValid(ownerCpf) && BusinessValidator.isCpfValid(targetCpf)) {
-			if (accountService.getAccount(ownerCpf) != null
-					&& accountService.getAccount(targetCpf) != null) {
-				
-				if (BusinessValidator.isAmmountfValid(value)) {
+			if (accountManager.getAccount(ownerCpf) != null && accountManager.getAccount(targetCpf) != null) {
 
-					accountService.makeTransfer(ownerCpf, targetCpf, value);
+				if (BusinessValidator.isAmmountfValid(value)) {
+					accountManager.makeTransfer(ownerCpf, targetCpf, value);
+					responseDTO.setData(new AccountDTO(accountManager.getAccount(ownerCpf)));
 					responseDTO.setMessage(ResponseMessage.SUCCESS);
 
 				} else {
@@ -172,7 +173,7 @@ public class AccountController {
 		} else {
 			responseDTO.setMessage(ResponseMessage.INVALID_CPF);
 		}
-		
+
 		response.setStatus(HttpStatus.OK.value());
 
 		return responseDTO;
@@ -180,20 +181,19 @@ public class AccountController {
 
 	@RequestMapping(value = "/", method = RequestMethod.DELETE, produces = { "application/json" })
 	@ResponseBody
-	public ResponseDTO<Account> deleteAccount(
-			@RequestParam(required = false) String ownerCpf,
+	public ResponseDTO<AccountDTO> deleteAccount(@RequestParam(required = false) String ownerCpf,
 			HttpServletResponse response) {
 
-		ResponseDTO<Account> responseDTO = new ResponseDTO<>();
+		ResponseDTO<AccountDTO> responseDTO = new ResponseDTO<>();
 
 		if (BusinessValidator.isCpfValid(ownerCpf)) {
-			if (accountService.getAccount(ownerCpf) != null) {
-				if (accountService.deleteAccount(ownerCpf)) {
+			if (accountManager.getAccount(ownerCpf) != null) {
+				if (accountManager.deleteAccount(ownerCpf)) {
 					responseDTO.setMessage(ResponseMessage.SUCCESS);
 				} else {
 					responseDTO.setMessage(ResponseMessage.OPERATION_ERROR);
 				}
-				
+
 			} else {
 				responseDTO.setMessage(ResponseMessage.ACCOUNT_NOT_FOUND);
 			}
@@ -201,9 +201,17 @@ public class AccountController {
 		} else {
 			responseDTO.setMessage(ResponseMessage.INVALID_CPF);
 		}
-		
+
 		response.setStatus(HttpStatus.OK.value());
-		
+
 		return responseDTO;
+	}
+
+	public List<AccountDTO> getAllAccounts() {
+		List<AccountDTO> accounts = new ArrayList<>();
+		for (Account account : accountManager.getAllAccounts()) {
+			accounts.add(new AccountDTO(account));
+		}
+		return accounts;
 	}
 }

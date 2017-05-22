@@ -1,9 +1,13 @@
 package com.wipro.ta.samplebank.response;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class ResponseDTO<T> {
+public class ResponseDTO<T> implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private String code;
 	private String message;
 	private T data;

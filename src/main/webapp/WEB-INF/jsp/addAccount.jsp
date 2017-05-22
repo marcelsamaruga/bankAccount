@@ -2,15 +2,11 @@
 
 <%@ include file="header.jsp" %>
 
-<script type="text/javascript" src="resources/scripts/masks.js"></script>
-
 <div id="createAccountPage">
 	<table style="width: 99%;">
 		<tr>
 			<td width="20%">
-				<span class="sb-content-desc">
-			 		New Customer Account
-			 	</span>
+				<span class="sb-content-desc"> New Customer Account </span>
 			</td>
 		</tr>
 	</table>
@@ -18,7 +14,7 @@
 		<table style="width: 600px;">
 			<tr>
 				<td width="23%">
-					<label>Customer CPF: </label>
+					<label>Customer ID: </label>
 				</td>
 				<td width="25%" align="left">
 					<form:input type="text" class="well-formated-input" id="ownerCpf" path="account.ownerCpf" size="30" maxlength="15"/>
@@ -28,7 +24,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="3" align="right">
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="3" align="right" class="sb-table-button-row">
 					<input class="sb-button" type="submit" value="Create Account" />
 				</td>
 			</tr>
