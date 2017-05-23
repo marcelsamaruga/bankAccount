@@ -38,7 +38,7 @@ public class AccountDTO implements Serializable {
 		this.balance = balance;
 	}
 
-	public String isHasPendingLoan() {
+	public String getHasPendingLoan() {
 		return hasPendingLoan;
 	}
 

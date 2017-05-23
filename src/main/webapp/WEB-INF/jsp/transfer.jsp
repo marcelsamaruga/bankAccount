@@ -37,7 +37,7 @@
 			<tr>
 				<td><label>Amount: </label></td>
 				<td align="left">
-					<form:input type="text" class="well-formated-input" id="ammount" path="operation.amount" size="20" maxlength="10"/>
+					<form:input type="text" class="well-formated-input money" id="ammount" path="operation.amount" size="20" maxlength="10"/>
 				</td>
 			</tr>
 			<tr>

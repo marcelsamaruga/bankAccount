@@ -15,7 +15,7 @@
 			<tr>
 				<td width="20%"><label>Account: </label></td>
 				<td align="left">
-					<form:select path="ownerCpf" htmlEscape="false">
+					<form:select id="ownerCpfSelect" path="ownerCpf" htmlEscape="false">
 						<form:option value="-1">-- Select Account --</form:option>
 						<c:if test="${not empty accounts}">
 							<form:options items="${accounts}" itemLabel="ownerCpf" itemValue="ownerCpf" />
@@ -29,6 +29,26 @@
 			<tr>
 				<td class="sb-table-button-row" colspan="3" align="right"><input class="sb-button" type="submit" value="Get Information" /></td>
 			</tr>
+			<c:if test="${not empty responseDTO.data}">
+				<tr>
+					<td colspan="2">
+						<table class="sb-account-info-table">
+							<tr class="even-row-bg">
+								<td width="30%">Account Number:</td>
+								<td>${responseDTO.data.ownerCpf}</td>
+							<tr>
+							<tr class="odd-row-bg">
+								<td>Balance:</td>
+								<td>${responseDTO.data.balance}</td>
+							<tr>
+							<tr class="even-row-bg">
+								<td>Has Pending Loan:</td>
+								<td>${responseDTO.data.hasPendingLoan.equals("true") ? "Yes" : "No"}</td>
+							<tr>
+						</table>
+					</td>
+				</tr>
+			</c:if>
 			<tr>
 				<td colspan="3" align="center">
 					<div>

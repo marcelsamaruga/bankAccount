@@ -254,3 +254,21 @@ input:focus
 .sb-table-button-row {
     border: 1px solid #AAA;
 }
+
+.sb-account-info-table {
+	width: 99%;
+	color: #000;
+}
+
+.sb-account-info-table th, .sb-account-info-table td {
+    border: 1px solid #555;
+    border-collapse: collapse;
+}
+
+.sb-account-info-table th, .sb-account-info-table td {
+    padding: 5px;
+}
+
+.even-row-bg {
+	background-color: #ADD8E6;
+}
