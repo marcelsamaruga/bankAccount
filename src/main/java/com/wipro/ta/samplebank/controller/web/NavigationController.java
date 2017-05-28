@@ -22,9 +22,9 @@ public class NavigationController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String home(HttpSession session) {
-		return "home";
+		return "admin/home";
 	}
 
 	@ModelAttribute("login")

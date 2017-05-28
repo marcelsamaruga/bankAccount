@@ -28,7 +28,7 @@ public class AdminController {
 	public String accountInfo(Model model) {
 		model.addAttribute("account", new AccountDTO());
 		model.addAttribute("accounts", accountController.getAllAccounts());
-		return "accountInfo";
+		return "admin/accountInfo";
 	}
 	
 	@RequestMapping(value = { "/accountInfo" }, method = RequestMethod.POST)
@@ -37,13 +37,13 @@ public class AdminController {
 		model.addAttribute("account", account);
 		model.addAttribute("accounts", accountController.getAllAccounts());
 		model.addAttribute("responseDTO", responseDTO);
-		return "accountInfo";
+		return "admin/accountInfo";
 	}
 
 	@RequestMapping(value = { "/addAccount" }, method = RequestMethod.GET)
 	public String addAccount(Model model) {
 		model.addAttribute("account", new AccountDTO());
-		return "addAccount";
+		return "admin/addAccount";
 	}
 
 	@RequestMapping(value = { "/addAccount" }, method = RequestMethod.POST)
@@ -58,7 +58,7 @@ public class AdminController {
 	public String withdraw(Model model) {
 		model.addAttribute("operation", new OperationDTO());
 		model.addAttribute("accounts", accountController.getAllAccounts());
-		return "withdraw";
+		return "admin/withdraw";
 	}
 
 	@RequestMapping(value = { "/withdraw" }, method = RequestMethod.POST)
@@ -68,14 +68,14 @@ public class AdminController {
 		model.addAttribute("operation", new OperationDTO());
 		model.addAttribute("accounts", accountController.getAllAccounts());
 		model.addAttribute("responseDTO", responseDTO);
-		return "withdraw";
+		return "admin/withdraw";
 	}
 
 	@RequestMapping(value = { "/deposit" }, method = RequestMethod.GET)
 	public String deposit(Model model) {
 		model.addAttribute("operation", new OperationDTO());
 		model.addAttribute("accounts", accountController.getAllAccounts());
-		return "deposit";
+		return "admin/deposit";
 	}
 
 	@RequestMapping(value = { "/deposit" }, method = RequestMethod.POST)
@@ -85,14 +85,14 @@ public class AdminController {
 		model.addAttribute("operation", new OperationDTO());
 		model.addAttribute("accounts", accountController.getAllAccounts());
 		model.addAttribute("responseDTO", responseDTO);
-		return "deposit";
+		return "admin/deposit";
 	}
 
 	@RequestMapping(value = { "/transfer" }, method = RequestMethod.GET)
 	public String transfer(Model model) {
 		model.addAttribute("operation", new OperationDTO());
 		model.addAttribute("accounts", accountController.getAllAccounts());
-		return "transfer";
+		return "admin/transfer";
 	}
 
 	@RequestMapping(value = { "/transfer" }, method = RequestMethod.POST)
@@ -102,14 +102,14 @@ public class AdminController {
 		model.addAttribute("operation", new OperationDTO());
 		model.addAttribute("accounts", accountController.getAllAccounts());
 		model.addAttribute("responseDTO", responseDTO);
-		return "transfer";
+		return "admin/transfer";
 	}
 
 	@RequestMapping(value = { "/loan" }, method = RequestMethod.GET)
 	public String loan(Model model) {
 		model.addAttribute("operation", new OperationDTO());
 		model.addAttribute("accounts", accountController.getAllAccounts());
-		return "loan";
+		return "admin/loan";
 	}
 
 	@RequestMapping(value = { "/loan" }, method = RequestMethod.POST)
@@ -119,6 +119,6 @@ public class AdminController {
 		model.addAttribute("operation", new OperationDTO());
 		model.addAttribute("accounts", accountController.getAllAccounts());
 		model.addAttribute("responseDTO", responseDTO);
-		return "deposit";
+		return "admin/loan";
 	}
 }

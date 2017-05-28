@@ -47,11 +47,13 @@ public class AuthenticationFilter implements Filter {
 	}
 
 	private boolean isPublicUri(String uri) {
-		List<String> publicPaths = new ArrayList<>();
-		publicPaths.add("resources/");
-		publicPaths.add("/samplebank/");
-		publicPaths.add("/samplebank/WEB-INF/jsp/index.jsp");
-		publicPaths.add("/samplebank/login");
-		return publicPaths.contains(uri) || uri.contains(publicPaths.get(0));
+		List<String> privatePaths = new ArrayList<>();
+		privatePaths.add("/admin/");
+		for(String privatePath : privatePaths) {
+			if(uri.contains(privatePath)) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
