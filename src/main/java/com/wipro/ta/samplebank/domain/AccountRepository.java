@@ -47,6 +47,6 @@ class AccountRepository {
 	}
 
 	static void clearAccounts() {
-		allAccounts().clear();
+		accounts.clear();
 	}
 }
