@@ -45,4 +45,8 @@ class AccountRepository {
 	static void addAccount(Account c) {
 		accounts.put(String.valueOf(c.getOwnerCpf()), c);
 	}
+
+	static void clearAccounts() {
+		allAccounts().clear();
+	}
 }

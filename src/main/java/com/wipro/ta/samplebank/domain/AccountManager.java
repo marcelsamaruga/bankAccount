@@ -72,4 +72,9 @@ public class AccountManager {
 		}
 		return false;
 	}
+
+	public boolean deleteAllAccounts() {
+		AccountRepository.clearAccounts();
+		return true;
+	}
 }
