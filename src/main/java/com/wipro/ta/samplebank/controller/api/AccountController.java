@@ -25,7 +25,6 @@ import com.wipro.ta.samplebank.validator.BusinessValidator;
 @RequestMapping("api/accounts")
 public class AccountController {
 
-	@Autowired
 	private AccountManager accountManager;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST, produces = { "application/json" })
@@ -213,5 +212,10 @@ public class AccountController {
 			accounts.add(new AccountDTO(account));
 		}
 		return accounts;
+	}
+	
+	@Autowired
+	public void setAccountManager(AccountManager accountManager) {
+		this.accountManager = accountManager;
 	}
 }

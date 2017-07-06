@@ -7,18 +7,25 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-@Service
+@Repository
 class AccountRepository {
 
-	private static Map<String, Account> accounts = new ConcurrentHashMap<String, Account>();
+	private static final Map<String, Account> accounts = new ConcurrentHashMap<String, Account>();
 
-	static List<Account> allAccounts() {
+	/**
+	 * Returns a list of available accounts
+	 */
+	public List<Account> allAccounts() {
 		return new ArrayList<Account>(accounts.values());
 	}
 
-	static Account findAccount(String ownerCpf) {
+	/**
+	 * Find a specific account in the repository using cpf identifier
+	 * @param ownerCpf
+	 */
+	public Account findAccount(String ownerCpf) {
 		if (accounts.containsKey(ownerCpf)) {
 			return accounts.get(ownerCpf);
 		}
@@ -26,7 +33,10 @@ class AccountRepository {
 		return null;
 	}
 
-	static void deleteAccount(Account c) {
+	/**
+	 * Deletes a specific account
+	 */
+	public void deleteAccount(Account c) {
 		if (accounts.containsValue(c)) {
 
 			Iterator<Entry<String, Account>> it = accounts.entrySet().iterator();
@@ -42,7 +52,10 @@ class AccountRepository {
 		}
 	}
 
-	static void addAccount(Account c) {
+	/**
+	 * Adds a new account to the repository
+	 */
+	public void addAccount(Account c) {
 		accounts.put(String.valueOf(c.getOwnerCpf()), c);
 	}
 }
