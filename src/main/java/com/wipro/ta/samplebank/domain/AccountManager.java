@@ -76,6 +76,11 @@ public class AccountManager {
 		return false;
 	}
 	
+	public boolean deleteAllAccounts() {
+		AccountRepository.clearAccounts();
+		return true;
+	}
+	
 	@Autowired
 	public void setAccountRepository(AccountRepository accountRepository) {
 		this.accountRepository = accountRepository;

@@ -206,6 +206,19 @@ public class AccountController {
 		return responseDTO;
 	}
 
+	@RequestMapping(value = "/all", method = RequestMethod.DELETE, produces = { "application/json" })
+	@ResponseBody
+	public ResponseDTO<AccountDTO> deleteAllAccounts(HttpServletResponse response) {
+		ResponseDTO<AccountDTO> responseDTO = new ResponseDTO<>();
+
+		accountManager.deleteAllAccounts();
+
+		responseDTO.setMessage(ResponseMessage.SUCCESS);
+		response.setStatus(HttpStatus.OK.value());
+
+		return responseDTO;
+	}
+
 	public List<AccountDTO> getAllAccounts() {
 		List<AccountDTO> accounts = new ArrayList<>();
 		for (Account account : accountManager.getAllAccounts()) {
